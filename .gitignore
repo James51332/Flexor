@@ -1,3 +1,10 @@
+# MacOS Files
+*.DS_Store
+
+# Build Directory
+bin
+build
+
 # Prerequisites
 *.d
 
