@@ -10,7 +10,14 @@ set (CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Source Files
 set(SRC_FILES src/engine.cpp)
-set(HEADER_FILES include/engine.h)
+set(HEADER_FILES include/engine.h
+                 include/math/base.h
+                 include/math/matrix.h
+                 include/math/small_matrix.h
+                 include/math/vector.h
+                 include/math/vector2.h
+                 include/math/vector3.h
+                 include/math/vector4.h)
 
 # Define the executable for the program
 add_library(flexor ${SRC_FILES} ${HEADER_FILES})

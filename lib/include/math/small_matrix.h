@@ -83,13 +83,13 @@ public:
 
   T& operator[](int index)
   {
-    assert(index >= 0 && index < length());
+    assert(index >= 0 && index < columns());
     return cols[index];
   }
 
   const T operator[](int index) const
   {
-    assert(index >= 0 && index < length());
+    assert(index >= 0 && index < columns());
     return cols[index];
   }
 

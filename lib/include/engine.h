@@ -3,6 +3,8 @@
 namespace flexor
 {
 
+// ----- Flexor Engine -----
+
 /**
  * This class represents an entire simulation of a physics world.
  */
