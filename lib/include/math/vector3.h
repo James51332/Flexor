@@ -2,12 +2,13 @@
 
 #include <cassert>
 
+#include "base.h"
 #include "vector.h"
 
 namespace flexor
 {
 
-// ----- Vector3 Struct -----
+// ----- Vector3 Class -----
 
 /**
  * A 3-component floating point vector
@@ -17,12 +18,14 @@ namespace flexor
  * able to have larger vectors as well, we will implement both methods. Also note that we are only
  * implementing this for academic purposes, as we performance benefits of SIMD with this method.
  */
-struct vector3
+struct vector3 : public base::vector
 {
   // Fields
+
   float x, y, z;
 
   // Constructors
+
   vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f)
     : x(x), y(y), z(z)
   {
@@ -34,9 +37,11 @@ struct vector3
   }
 
   // Methods
-  static int length() { return 3; }
+
+  constexpr static int length() { return 3; }
 
   // Operators
+
   vector3& operator+=(const vector3& other)
   {
     x += other.x;

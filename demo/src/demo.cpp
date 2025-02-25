@@ -2,8 +2,6 @@
 
 #include <core/Input.h>
 
-#include <math/vector.h>
-
 namespace flexor
 {
 

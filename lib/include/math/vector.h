@@ -3,6 +3,8 @@
 #include <cassert>
 #include <vector>
 
+#include "base.h"
+
 // These each form a circular include, but this is okay as long as small vectors aren't included
 // without operators defined in this header. We also want them accessible from just including this
 // file.
@@ -16,15 +18,18 @@ namespace flexor
 // ----- Vector Class -----
 
 /**
- * A heap allocated vector that can have any size. If size is 2, 3, or 4, it is strongly suggested
- * to use the vectorN types, since they are stack allocated and will perform better in general. This
- * class is most useful when the size of the vector is not known until runtime. We ironically
- * implement this class by wrapping over std::vector.
+ * A heap allocated vector that can have any size greater than zero. If size is 2, 3, or 4, it is
+ * strongly suggested to use the vectorN types, since they are stack allocated and will perform
+ * better in general. This class is most useful when the size of the vector is not known until
+ * runtime. We ironically implement this class by wrapping over std::vector.
  */
-class vector
+class vector : public base::vector
 {
 public:
   // Constructors
+
+  vector() = delete;
+
   vector(int length, float fill = 0.0f)
     : data(length, fill)
   {
@@ -46,9 +51,11 @@ public:
   }
 
   // Methods
+
   int length() const { return data.size(); }
 
   // Operators
+
   vector& operator+=(const vector& other)
   {
     assert(length() == other.length());
@@ -98,29 +105,61 @@ public:
   }
 
 private:
+  // Fields
+
   std::vector<float> data;
 };
 
 // ----- Inline Operators -----
 
-template <typename vecType> inline vecType operator+(const vecType& lhs, const vecType& rhs)
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator+(const vecType& lhs, const vecType& rhs)
 {
   return vecType(lhs) += rhs;
 }
 
-template <typename vecType> inline vecType operator-(const vecType& lhs, const vecType& rhs)
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator-(const vecType& lhs, const vecType& rhs)
 {
   return vecType(lhs) -= rhs;
 }
 
-template <typename vecType> inline vecType operator*(const vecType& vec, float scalar)
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator*(const vecType& vec, float scalar)
 {
   return vecType(vec) *= scalar;
 }
 
-template <typename vecType> inline vecType operator*(float scalar, const vecType& vec)
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator*(float scalar, const vecType& vec)
 {
   return vec * scalar;
+}
+
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator/(const vecType& vec, float scalar)
+{
+  return vecType(vec) /= scalar;
+}
+
+// ----- Dot Product -----
+
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, float>::type
+dot(const vecType& lhs, const vecType& rhs)
+{
+  assert(lhs.length() == rhs.length());
+
+  float res = 0.0f;
+  for (int i = 0; i < lhs.length(); i++)
+    res += lhs[i] * rhs[i];
+
+  return res;
 }
 
 } // namespace flexor
