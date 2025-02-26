@@ -34,9 +34,12 @@ public:
 
   matrix() = delete;
 
-  matrix(float rows, float cols, float v = 0.0f)
-    : numRows(rows), numCols(cols), cols(cols, vector(rows, v))
+  matrix(int rows, int columns, float v = 0.0f)
+    : numRows(rows), numCols(columns), cols(columns, vector(rows, 0.0f))
   {
+    int length = rows < columns ? rows : columns;
+    for (int i = 0; i < length; i++)
+      cols[i][i] = v;
   }
 
   // Methods
@@ -105,6 +108,8 @@ transpose(const matType& matrix)
   for (int i = 0; i < matrix.columns(); i++)
     for (int j = 0; j < matrix.rows(); j++)
       res[j][i] = matrix[i][j];
+
+  return res;
 }
 
 // ----- Inline Operators -----
@@ -144,9 +149,9 @@ operator*(const matType& lhs, const matType& rhs)
   matType res(lhs.rows(), rhs.columns());
   matType trans = transpose(lhs);
 
-  for (int i = 0; i < res.columns(); i++)
-    for (int j = 0; j < res.rows(); j++)
-      res[i][j] = dot(trans[i], rhs[i]);
+  for (int i = 0; i < rhs.columns(); i++)
+    for (int j = 0; j < trans.columns(); j++)
+      res[i][j] = dot(trans[j], rhs[i]);
 
   return res;
 }
@@ -176,6 +181,36 @@ operator/(const matType& mat, float scalar)
   matType res(mat.rows(), mat.columns());
   for (int i = 0; i < mat.columns(); i++)
     res[i] = mat[i] / scalar;
+
+  return res;
+}
+
+template <typename T>
+inline typename std::enable_if<std::is_base_of<base::matrix, T>::value, bool>::type
+operator==(const T& lhs, const T& rhs)
+{
+  if ((lhs.rows() != rhs.rows()) || (lhs.columns() != rhs.columns()))
+    return false;
+
+  for (int i = 0; i < lhs.columns(); i++)
+    if (lhs[i] != rhs[i])
+      return false;
+
+  return true;
+}
+
+// ----- Matrix Vector Multiplication -----
+
+template <typename T, typename V, std::enable_if_t<std::is_base_of_v<base::matrix, T>, bool> = true,
+          std::enable_if_t<std::is_base_of_v<base::vector, V>, bool> = true>
+inline V operator*(const T& mat, const V& vec)
+{
+  assert(mat.rows() == vec.length());
+
+  T trans = transpose(mat);
+  V res(mat.columns());
+  for (int i = 0; i < res.length(); i++)
+    res[i] = dot(trans[i], vec);
 
   return res;
 }

@@ -26,13 +26,19 @@ struct vector4 : public base::vector
 
   // Constructors
 
-  vector4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f)
-    : x(x), y(y), z(z), w(w)
+  vector4(float v = 0.0f)
+    : vector4(v, v, v, v)
   {
   }
 
-  vector4(float v)
+  vector4(int len, float v = 0.0f)
     : vector4(v, v, v, v)
+  {
+    assert(len == length());
+  }
+
+  vector4(float x, float y, float z, float w)
+    : x(x), y(y), z(z), w(w)
   {
   }
 

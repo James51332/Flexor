@@ -26,13 +26,19 @@ struct vector3 : public base::vector
 
   // Constructors
 
-  vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f)
-    : x(x), y(y), z(z)
+  vector3(float v = 0.0f)
+    : vector3(v, v, v)
   {
   }
 
-  vector3(float v)
+  vector3(int len, float v = 0.0f)
     : vector3(v, v, v)
+  {
+    assert(len == length());
+  }
+
+  vector3(float x, float y, float z)
+    : x(x), y(y), z(z)
   {
   }
 

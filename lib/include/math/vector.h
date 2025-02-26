@@ -147,6 +147,20 @@ operator/(const vecType& vec, float scalar)
   return vecType(vec) /= scalar;
 }
 
+template <typename T>
+inline typename std::enable_if<std::is_base_of<base::vector, T>::value, bool>::type
+operator==(const T& lhs, const T& rhs)
+{
+  if (lhs.length() != rhs.length())
+    return false;
+
+  for (int i = 0; i < lhs.length(); i++)
+    if (lhs[i] != rhs[i])
+      return false;
+
+  return true;
+}
+
 // ----- Dot Product -----
 
 template <typename vecType>

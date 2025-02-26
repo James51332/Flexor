@@ -26,13 +26,19 @@ struct vector2 : public base::vector
 
   // Constructors
 
-  vector2(float x = 0.0f, float y = 0.0f)
-    : x(x), y(y)
+  vector2(float v = 0.0f)
+    : vector2(v, v)
   {
   }
 
-  vector2(float v)
+  vector2(int len, float v = 0.0f)
     : vector2(v, v)
+  {
+    assert(len == length());
+  }
+
+  vector2(float x, float y)
+    : x(x), y(y)
   {
   }
 
