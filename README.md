@@ -1,5 +1,7 @@
 # Flexor
 
+![build-status](https://github.com/james51332/flexor/actions/workflows/build.yml/badge.svg)
+
 A constraint-based physics engine written in C++.
 
 ## References

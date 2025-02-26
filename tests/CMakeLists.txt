@@ -7,6 +7,9 @@ enable_testing()
 # Include CTest for testing
 include(CTest)
 
+# Set the project
+project(flexor-tests)
+
 # Generate a driver for our test file.
 set(FlexorTests
   math/vector.cpp
