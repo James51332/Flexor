@@ -14,6 +14,7 @@ int math_vector(int argc, char** argv)
     assert(vec4 * 3.0f == 3.0f * vec4);
     assert(vector4(vec2) + vector4(vector2(), vec2) == vec4);
     assert(vec3 * 2.0f == vec3 + vec3);
+    assert(magnitude(vec3) - sqrt(3 * 9.0f) <= 0.1f);
 
     vector4 lhs(1.0f);
     vector4 rhs(5.0f);
