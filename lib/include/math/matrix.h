@@ -34,7 +34,7 @@ public:
 
   matrix() = delete;
 
-  matrix(int rows, int columns, float v = 0.0f)
+  matrix(int rows, int columns, float v = 1.0f)
     : numRows(rows), numCols(columns), cols(columns, vector(rows, 0.0f))
   {
     int length = rows < columns ? rows : columns;

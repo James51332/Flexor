@@ -39,13 +39,13 @@ public:
   {
   }
 
-  small_matrix(float v = 0.0f)
+  small_matrix(float v = 1.0f)
   {
     for (int i = 0; i < columns(); i++)
       cols[i][i] = v;
   }
 
-  small_matrix(int rows, int cols, float v = 0.0f)
+  small_matrix(int rows, int cols, float v = 1.0f)
     : small_matrix(v)
   {
     assert(N == rows && N == cols);
@@ -53,7 +53,7 @@ public:
 
   template <typename U>
   small_matrix(small_matrix<U> mat)
-    : small_matrix(0.0f)
+    : small_matrix()
   {
     assert(mat.columns() <= columns());
 
