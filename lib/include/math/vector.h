@@ -86,6 +86,8 @@ public:
 
   vector& operator/=(float scalar)
   {
+    assert(scalar != 0.0f);
+
     for (float& elt : data)
       elt /= scalar;
 

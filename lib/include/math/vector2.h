@@ -71,6 +71,8 @@ struct vector2 : public base::vector
 
   vector2& operator/=(float scalar)
   {
+    assert(scalar != 0.0f);
+
     x /= scalar;
     y /= scalar;
     return (*this);

@@ -77,6 +77,8 @@ struct vector4 : public base::vector
 
   vector4& operator/=(float scalar)
   {
+    assert(scalar != 0.0f);
+
     x /= scalar;
     y /= scalar;
     z /= scalar;

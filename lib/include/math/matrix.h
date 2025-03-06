@@ -185,6 +185,8 @@ template <typename matType>
 inline typename std::enable_if<std::is_base_of<base::matrix, matType>::value, matType>::type
 operator/(const matType& mat, float scalar)
 {
+  assert(scalar != 0.0f);
+
   matType res(mat.rows(), mat.columns());
   for (int i = 0; i < mat.columns(); i++)
     res[i] = mat[i] / scalar;
