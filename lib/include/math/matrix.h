@@ -142,6 +142,13 @@ operator-(const matType& lhs, const matType& rhs)
 
 template <typename matType>
 inline typename std::enable_if<std::is_base_of<base::matrix, matType>::value, matType>::type
+operator-(const matType& mat)
+{
+  return matType(mat) *= -1.0f;
+}
+
+template <typename matType>
+inline typename std::enable_if<std::is_base_of<base::matrix, matType>::value, matType>::type
 operator*(const matType& lhs, const matType& rhs)
 {
   assert(lhs.columns() == rhs.rows());
