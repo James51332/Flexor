@@ -30,24 +30,21 @@ public:
 
   vector() = delete;
 
-  vector(int length, float fill = 0.0f)
-    : data(length, fill)
+  vector(int len, float fill = 0.0f)
+    : data(len, fill)
   {
   }
 
-  vector(const vector2& vec)
-    : data({vec.x, vec.y})
+  // Constructs a vector from a smaller vector, with the new set size, or the same size if len is
+  // negative.
+  template <typename U, std::enable_if_t<std::is_base_of_v<base::vector, U>, bool> = true>
+  vector(const U& vec, int len = -1)
+    : vector(len >= 0 ? len : vec.length())
   {
-  }
+    assert(vec.length() <= length());
 
-  vector(const vector3& vec)
-    : data({vec.x, vec.y, vec.z})
-  {
-  }
-
-  vector(const vector4& vec)
-    : data({vec.x, vec.y, vec.z, vec.w})
-  {
+    for (int i = 0; i < vec.length(); i++)
+      data[i] = vec[i];
   }
 
   // Methods
@@ -170,7 +167,7 @@ operator==(const T& lhs, const T& rhs)
   return true;
 }
 
-// ----- Dot Product -----
+// ----- Vector Operations -----
 
 template <typename vecType>
 inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, float>::type
@@ -183,6 +180,13 @@ dot(const vecType& lhs, const vecType& rhs)
     res += lhs[i] * rhs[i];
 
   return res;
+}
+
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, float>::type
+magnitude(const vecType& vec)
+{
+  return sqrt(dot(vec, vec));
 }
 
 } // namespace flexor

@@ -42,6 +42,16 @@ struct vector4 : public base::vector
   {
   }
 
+  vector4(const vector2& first, const vector2& second = vector2())
+    : vector4(first.x, first.y, second.x, second.y)
+  {
+  }
+
+  vector4(const vector3& vec, float last = 0.0f)
+    : vector4(vec.x, vec.y, vec.z, last)
+  {
+  }
+
   // Methods
 
   constexpr static int length() { return 4; }

@@ -42,6 +42,11 @@ struct vector3 : public base::vector
   {
   }
 
+  vector3(const vector2& vec, float last = 0.0f)
+    : vector3(vec.x, vec.y, last)
+  {
+  }
+
   // Methods
 
   constexpr static int length() { return 3; }

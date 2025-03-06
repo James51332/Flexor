@@ -15,7 +15,7 @@ int math_matrix(int argc, char** argv)
     assert(mat2 * 3.0f == 3.0f * mat2);
     assert(mat3 * 2.0f == mat3 + mat3);
     assert(mat4 * -1.0f == -mat4);
-    assert(mat4 == transpose(mat4));
+    assert(matrix4(mat2) == transpose(mat4));
 
     matrix4 lhs(2.0f);
     matrix4 rhs(5.0f);
@@ -39,6 +39,7 @@ int math_matrix(int argc, char** argv)
     matrix mat5(5, 5, 2.0f);
     vector vec5(5, 2.0f);
     assert(vec5 * 2.0f == mat5 * vec5);
+    assert(matrix(matrix4(1.0f), 5, 5) * vec5 == vec5);
 
     matrix rowVec(1, 10);
     matrix colVec(10, 1);

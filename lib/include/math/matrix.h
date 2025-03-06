@@ -42,6 +42,19 @@ public:
       cols[i][i] = v;
   }
 
+  // Builds a matrix from a smaller matrix with given # rows and # cols or the same or the same
+  // number of rows or cols as the given matrix for each of these parameters that are negative.
+  template <typename U, std::enable_if_t<std::is_base_of_v<base::matrix, U>, bool> = true>
+  matrix(const U& mat, int rows = -1, int columns = -1)
+    : matrix(rows >= 0 ? rows : mat.rows(), columns >= 0 ? columns : mat.columns())
+  {
+    assert(mat.rows() <= rows && mat.columns() <= columns);
+
+    int length = mat.rows() < mat.columns() ? mat.rows() : mat.columns();
+    for (int i = 0; i < length; i++)
+      cols[i] = mat[i];
+  }
+
   // Methods
 
   int columns() const { return numCols; }

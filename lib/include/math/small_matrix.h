@@ -51,6 +51,16 @@ public:
     assert(N == rows && N == cols);
   }
 
+  template <typename U>
+  small_matrix(small_matrix<U> mat)
+    : small_matrix(0.0f)
+  {
+    assert(mat.columns() <= columns());
+
+    for (int i = 0; i < mat.columns(); i++)
+      cols[i] = mat[i];
+  }
+
   // Methods
 
   constexpr static int columns() { return N; }
