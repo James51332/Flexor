@@ -128,6 +128,13 @@ operator-(const vecType& lhs, const vecType& rhs)
 
 template <typename vecType>
 inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+operator-(const vecType& vec)
+{
+  return vecType(vec) *= -1.0f;
+}
+
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
 operator*(const vecType& vec, float scalar)
 {
   return vecType(vec) *= scalar;

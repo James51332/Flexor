@@ -14,6 +14,7 @@ int math_matrix(int argc, char** argv)
     assert(mat2 == mat2);
     assert(mat2 * 3.0f == 3.0f * mat2);
     assert(mat3 * 2.0f == mat3 + mat3);
+    assert(mat4 * -1.0f == -mat4);
     assert(mat4 == transpose(mat4));
 
     matrix4 lhs(2.0f);

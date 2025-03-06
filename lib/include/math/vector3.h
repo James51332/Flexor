@@ -105,4 +105,16 @@ struct vector3 : public base::vector
   }
 };
 
+// ----- Cross Product -----
+
+inline vector3 cross(const vector3& lhs, const vector3& rhs)
+{
+  // https://en.wikipedia.org/wiki/Cross_product
+  vector3 res;
+  res[0] = lhs[1] * rhs[2] - lhs[2] * rhs[1];
+  res[1] = lhs[2] * rhs[0] - lhs[0] * rhs[2];
+  res[2] = lhs[0] * rhs[1] - lhs[1] * rhs[0];
+  return res;
+}
+
 } // namespace flexor

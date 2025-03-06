@@ -18,6 +18,12 @@ int math_vector(int argc, char** argv)
     vector4 lhs(1.0f);
     vector4 rhs(5.0f);
     assert(dot(lhs, rhs) == 20.0f);
+
+    vector3 i(1.0f, 0.0f, 0.0f);
+    vector3 j(0.0f, 1.0f, 0.0f);
+    vector3 k(0.0f, 0.0f, 1.0f);
+    assert(cross(i, j) == k);
+    assert(cross(k, j) == -i);
   }
 
   // Big Vector Tests
