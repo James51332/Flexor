@@ -9,24 +9,40 @@ namespace flexor::solver
 {
 
 /**
- * Swaps i-th and j-th row of A.
+ * Swaps i-th and j-th row of matrix A.
  */
 inline matrix swapRows(matrix& A, int i, int j)
 {
+  assert(i < A.rows() && j < A.rows());
+
+  for (int col = 0; col < A.columns(); col++)
+  {
+    float tmp = A[col][i];
+    A[col][i] = A[col][j];
+    A[col][j] = tmp;
+  }
 }
 
 /**
- * Adds i-th row of A * scalar to j-th row of A.
+ * Multiplies the i-th row of a matrix A by given scalar.
  */
 inline matrix scaleRow(matrix& A, int i, float scalar)
 {
+  assert(i < A.rows());
+
+  for (int col = 0; col < A.columns(); col++)
+    A[col][i] *= scalar;
 }
 
 /**
- * Adds i-th row of A * scalar to j-th row of A.
+ * Adds scaled i-th row to j-th row in matrix A.
  */
 inline matrix performRowOperation(matrix& A, int i, int j, float scalar = 1.0f)
 {
+  assert(i < A.rows() && j < A.rows());
+
+  for (int col = 0; col < A.columns(); col++)
+    A[col][j] += A[col][i] * scalar;
 }
 
 /**
@@ -75,7 +91,8 @@ inline vector gaussJordan(const matrix& A, const vector& B)
       copyB[row] = tmp;
     }
 
-    // Now that we have a good value on the diagonal, we divide the row by the scalar.
+    // Now that we have a good value on the diagonal, we divide the row by the scalar, which we know
+    // is non-zero because of our swap.
     float scale = 1.0f / copyA[row][row];
     scaleRow(copyA, row, scale);
     copyB[row] *= scale;
@@ -83,7 +100,7 @@ inline vector gaussJordan(const matrix& A, const vector& B)
     // We'll add this to all the other row to ensure that this column is only one in current row.
     for (int other = 0; other < A.rows(); other++)
     {
-      // Skip the current row.
+      // Don't add the current row to itself.
       if (row == other)
         continue;
 
