@@ -207,9 +207,9 @@ operator/(const matType& mat, float scalar)
   return res;
 }
 
-template <typename T>
-inline typename std::enable_if<std::is_base_of<base::matrix, T>::value, bool>::type
-operator==(const T& lhs, const T& rhs)
+template <typename T, typename U, std::enable_if_t<std::is_base_of_v<base::matrix, T>, bool> = true,
+          std::enable_if_t<std::is_base_of_v<base::matrix, U>, bool> = true>
+inline bool operator==(const T& lhs, const U& rhs)
 {
   if ((lhs.rows() != rhs.rows()) || (lhs.columns() != rhs.columns()))
     return false;

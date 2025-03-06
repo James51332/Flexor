@@ -153,9 +153,9 @@ operator/(const vecType& vec, float scalar)
   return vecType(vec) /= scalar;
 }
 
-template <typename T>
-inline typename std::enable_if<std::is_base_of<base::vector, T>::value, bool>::type
-operator==(const T& lhs, const T& rhs)
+template <typename T, typename U, std::enable_if_t<std::is_base_of_v<base::vector, T>, bool> = true,
+          std::enable_if_t<std::is_base_of_v<base::vector, U>, bool> = true>
+inline bool operator==(const T& lhs, const U& rhs)
 {
   if (lhs.length() != rhs.length())
     return false;
@@ -187,6 +187,16 @@ inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, fl
 magnitude(const vecType& vec)
 {
   return sqrt(dot(vec, vec));
+}
+
+template <typename vecType>
+inline typename std::enable_if<std::is_base_of<base::vector, vecType>::value, vecType>::type
+normalize(const vecType& vec)
+{
+  float mag = magnitude(vec);
+  assert(mag != 0.0f);
+
+  return (vec / mag);
 }
 
 } // namespace flexor

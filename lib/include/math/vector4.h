@@ -4,6 +4,8 @@
 
 #include "base.h"
 #include "vector.h"
+#include "vector2.h"
+#include "vector3.h"
 
 namespace flexor
 {
