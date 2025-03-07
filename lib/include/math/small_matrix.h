@@ -32,17 +32,15 @@ template <typename T, int N = T::length()> class small_matrix : public base::mat
 public:
   // Constructors
 
-  small_matrix() = delete;
-
-  small_matrix(T vec)
-    : cols(N, vec)
-  {
-  }
-
   small_matrix(float v = 1.0f)
   {
     for (int i = 0; i < columns(); i++)
       cols[i][i] = v;
+  }
+
+  small_matrix(T vec)
+    : cols(N, vec)
+  {
   }
 
   small_matrix(int rows, int cols, float v = 1.0f)
