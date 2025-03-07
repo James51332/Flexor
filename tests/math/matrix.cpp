@@ -7,9 +7,9 @@ int math_matrix(int argc, char** argv)
 {
   // Small Matrix Tests
   {
-    matrix2 mat2(2.0f);
+    matrix2 mat2(1.0f);
     matrix3 mat3(2.0f);
-    matrix4 mat4(2.0f);
+    matrix4 mat4(1.0f);
 
     assert(mat2 == mat2);
     assert(mat2 * 3.0f == 3.0f * mat2);

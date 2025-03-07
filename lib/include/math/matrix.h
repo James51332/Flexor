@@ -48,11 +48,11 @@ public:
   matrix(const U& mat, int rows = -1, int columns = -1)
     : matrix(rows >= 0 ? rows : mat.rows(), columns >= 0 ? columns : mat.columns())
   {
-    assert(mat.rows() <= rows && mat.columns() <= columns);
+    assert(mat.rows() <= numRows && mat.columns() <= numCols);
 
     int length = mat.rows() < mat.columns() ? mat.rows() : mat.columns();
     for (int i = 0; i < length; i++)
-      cols[i] = mat[i];
+      cols[i] = vector(mat[i], numRows);
   }
 
   // Methods

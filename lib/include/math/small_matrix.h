@@ -53,7 +53,7 @@ public:
 
   template <typename U>
   small_matrix(small_matrix<U> mat)
-    : small_matrix()
+    : small_matrix(1.0f)
   {
     assert(mat.columns() <= columns());
 
