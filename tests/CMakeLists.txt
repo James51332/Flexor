@@ -15,6 +15,7 @@ set(FlexorTests
   math/vector.cpp
   math/matrix.cpp
   math/solver.cpp
+  math/quaternion.cpp
 )
 create_test_sourcelist(Tests flexor_tests.cpp ${FlexorTests})
 
