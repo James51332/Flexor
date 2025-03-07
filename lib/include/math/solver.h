@@ -4,6 +4,7 @@
 #include "vector.h"
 
 #include <cassert>
+#include <stdexcept>
 
 namespace flexor::solver
 {
