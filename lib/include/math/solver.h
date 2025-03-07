@@ -1,13 +1,15 @@
 #pragma once
 
-#include "matrix.h"
-#include "vector.h"
-
 #include <cassert>
 #include <stdexcept>
 
+#include "matrix.h"
+#include "vector.h"
+
 namespace flexor::solver
 {
+
+// ----- Row Operations -----
 
 /**
  * Swaps i-th and j-th row of matrix A.
@@ -45,6 +47,8 @@ inline matrix performRowOperation(matrix& A, int i, int j, float scalar = 1.0f)
   for (int col = 0; col < A.columns(); col++)
     A[col][j] += A[col][i] * scalar;
 }
+
+// ----- Gauss-Jordan Elimination -----
 
 /**
  * An implementation of gauss-jordan elimination to solve the linear system Ax = B, where A is a
