@@ -37,9 +37,23 @@ public:
   matrix(int rows, int columns, float v = 1.0f)
     : numRows(rows), numCols(columns), cols(columns, vector(rows, 0.0f))
   {
+    assert(rows > 0 && columns > 0);
+
     int length = rows < columns ? rows : columns;
     for (int i = 0; i < length; i++)
       cols[i][i] = v;
+  }
+
+  /**
+   * Constructs a matrix from a list of column vectors. Each column vector must have the same number
+   * of components.
+   */
+  matrix(std::initializer_list<vector> columns)
+    : numRows(columns.begin()->length()), numCols(columns.size()), cols(columns)
+  {
+    // Make sure that we have the same number of compenents for each.
+    for (auto& col : cols)
+      assert(col.length() == numRows);
   }
 
   // Builds a matrix from a smaller matrix with given # rows and # cols or the same or the same

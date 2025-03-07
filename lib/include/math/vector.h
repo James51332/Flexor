@@ -34,10 +34,21 @@ public:
   vector(int len, float fill = 0.0f)
     : data(len, fill)
   {
+    assert(len > 0);
   }
 
-  // Constructs a vector from a smaller vector, with the new set size, or the same size if len is
-  // negative.
+  /**
+   * Constructs a vector from a list of numbers
+   */
+  vector(std::initializer_list<float> elts)
+    : data(elts)
+  {
+  }
+
+  /**
+   * Constructs a vector from a smaller vector, with the new set size, or the same size if len is
+   * negative.
+   */
   template <typename U, std::enable_if_t<std::is_base_of_v<base::vector, U>, bool> = true>
   vector(const U& vec, int len = -1)
     : vector(len >= 0 ? len : vec.length())
