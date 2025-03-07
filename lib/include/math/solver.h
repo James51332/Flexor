@@ -14,7 +14,7 @@ namespace flexor::solver
 /**
  * Swaps i-th and j-th row of matrix A.
  */
-inline matrix swapRows(matrix& A, int i, int j)
+inline void swapRows(matrix& A, int i, int j)
 {
   assert(i < A.rows() && j < A.rows());
 
@@ -29,7 +29,7 @@ inline matrix swapRows(matrix& A, int i, int j)
 /**
  * Multiplies the i-th row of a matrix A by given scalar.
  */
-inline matrix scaleRow(matrix& A, int i, float scalar)
+inline void scaleRow(matrix& A, int i, float scalar)
 {
   assert(i < A.rows());
 
@@ -40,7 +40,7 @@ inline matrix scaleRow(matrix& A, int i, float scalar)
 /**
  * Adds scaled i-th row to j-th row in matrix A.
  */
-inline matrix performRowOperation(matrix& A, int i, int j, float scalar = 1.0f)
+inline void performRowOperation(matrix& A, int i, int j, float scalar = 1.0f)
 {
   assert(i < A.rows() && j < A.rows());
 
